@@ -96,7 +96,7 @@ export async function POST(req: Request) {
     }
 
     // Add URL to database
-    const created = await database.addUrl(shortCode, data.url);
+    const created = await database.addUrl(data.url, shortCode);
 
     return NextResponse.json(
       {

@@ -32,6 +32,13 @@ export async function GET(
 
     // Redirect to the target URL (302 temporary redirect for analytics tracking)
     return NextResponse.redirect(result.redirectUrl, { status: 302 });
+
+    // return NextResponse.json(
+    //   {
+    //     redirectUrl: result.redirectUrl,
+    //   },
+    //   { status: 200 }
+    // );
   } catch (error: unknown) {
     console.error(`GET /api/links/${(await params).code} error:`, error);
 

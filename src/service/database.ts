@@ -95,8 +95,7 @@ class Database {
 
       const result = await sql`
         SELECT * FROM urls 
-        WHERE "shortUrl" = ${shortUrl} 
-        LIMIT 1
+        WHERE "shortUrl" = ${shortUrl}
       `;
 
       return result.length > 0 ? (result[0] as Url) : null;
@@ -170,7 +169,7 @@ class Database {
   }
 
   // Add a new URL
-  async addUrl(shortUrl: string, redirectUrl: string): Promise<Url> {
+  async addUrl(redirectUrl: string, shortUrl?: string): Promise<Url> {
     try {
       if (!shortUrl || shortUrl.trim().length === 0) {
         throw new ValidationError("shortUrl cannot be empty");

@@ -32,17 +32,6 @@ const HealthIcon = () => (
   </svg>
 );
 
-const AnalyticsIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z" />
-  </svg>
-);
-
-// NEW: URL Shortener Brand Icon - Link chain with compression arrows
 const URLShortenerIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -111,11 +100,6 @@ const navigationLinks = [
     label: "System Health",
     icon: <HealthIcon />,
   },
-  {
-    href: "/analytics",
-    label: "Analytics",
-    icon: <AnalyticsIcon />,
-  },
 ];
 
 export default function Navbar() {
@@ -127,7 +111,8 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-b-[#222949] px-4 sm:px-6 lg:px-10 py-4 w-full bg-white/80 dark:bg-[#101322]/80 backdrop-blur-sm sticky top-0 z-40">
+      <header className="relative flex items-center justify-between whitespace-nowrap px-4 sm:px-6 lg:px-10 py-4 w-full ">
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-purple-400 to-purple-600 opacity-20"></div>
         {/* Logo Section with Gradient and Brand Icon */}
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-linear-to-r from-purple-400 to-purple-600 p-2">
