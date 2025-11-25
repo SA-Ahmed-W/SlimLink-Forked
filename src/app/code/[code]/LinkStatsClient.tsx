@@ -59,7 +59,7 @@ export default function LinkStatsClient({ linkInfo }: Props) {
                         </Link>
                         <span className="text-gray-400 dark:text-slate-500 text-sm font-medium leading-normal">/</span>
                         <span className="text-gray-500 dark:text-slate-400 text-sm font-medium leading-normal hover:text-purple-600 dark:hover:text-purple-400 transition-colors">
-                            Links
+                            Code
                         </span>
                         <span className="text-gray-400 dark:text-slate-500 text-sm font-medium leading-normal">/</span>
                         <span className="text-black dark:text-white text-sm font-medium leading-normal font-mono">{linkInfo?.shortUrl}</span>
