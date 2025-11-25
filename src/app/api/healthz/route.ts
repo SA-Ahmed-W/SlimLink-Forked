@@ -12,7 +12,8 @@ export async function GET() {
 
     return NextResponse.json({
         ok: dbStatus,
-        version: '1.0',
+        api_version: '1.0',
+        dbStatus,
         datetime: new Date().toISOString(),
         nodeVersion: process.version,
         uptimeSeconds,

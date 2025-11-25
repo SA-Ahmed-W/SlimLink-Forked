@@ -5,6 +5,9 @@ export const metadata: Metadata = {
     description: "A real-time overview of our system's performance."
 }
 
+export const dynamic = 'force-dynamic'
+// export const revalidate = 60 * 30 // 30 minutes
+
 interface SystemHealth {
     overall: 'operational' | 'degraded' | 'down'
     lastChecked: string
@@ -86,32 +89,72 @@ const DownSVG = () => {
     )
 }
 
+type ApiResponse = {
+    ok: boolean
+    api_version: string
+    dbStatus: boolean
+    datetime: string
+    nodeVersion: string
+    uptimeSeconds: number
+    uptimeMs: number
+    uptime: string
+}
+
 async function getSystemHealth(): Promise<SystemHealth> {
-    // TODO: Replace with a real API call
+    const ORIGIN = process.env.APP_ORIGIN
+    if (!ORIGIN) throw new Error('APP_ORIGIN is not set')
+
+    const websiteRes = await fetch(ORIGIN, {
+        method: 'HEAD',
+        next: {
+            revalidate: 60 * 30 // 30 minutes
+        }
+    })
+    const websiteStatus = websiteRes.ok
+
+    const resultFetch = await fetch(ORIGIN + `/api/healthz`, {
+        method: 'GET',
+        next: {
+            revalidate: 60 * 30 // 30 minutes
+        }
+    })
+    const resultFetchJson: ApiResponse = await resultFetch.json()
 
     return {
         overall: 'operational',
-        lastChecked: new Date().toISOString(),
+        lastChecked: resultFetchJson.datetime,
         components: [
-            { name: 'Website', status: 'operational', statusLabel: 'Operational' },
+            { name: 'Website', status: websiteStatus ? 'operational' : 'down', statusLabel: websiteStatus ? 'Operational' : 'Down' },
             {
-                name: 'Shortening API',
-                status: 'operational',
-                statusLabel: 'Operational'
+                name: 'Shortening API + Redirection Service ',
+                status: resultFetchJson.ok ? 'operational' : 'down',
+                statusLabel: resultFetchJson.ok ? 'Operational' : 'Down'
             },
             {
                 name: 'Redirection Service',
                 status: 'not-implemented',
                 statusLabel: 'Not Implemented'
             },
-            { name: 'Database', status: 'down', statusLabel: 'Down' }
+            {
+                name: 'Database',
+                status: resultFetchJson.dbStatus ? 'operational' : 'down',
+                statusLabel: resultFetchJson.dbStatus ? 'Operational' : 'Down'
+            }
         ]
     }
 }
 
 async function HealthPage() {
-    const systemStatus: 'operational' | 'degraded' | 'down' = 'operational'
     const healthData = await getSystemHealth()
+    const systemStatus: 'operational' | 'degraded' | 'down' = healthData.overall
+
+    const statuses = healthData.components.map((c) => c.status)
+
+    let overallSystemStatus: SystemHealth['overall'] = 'operational'
+
+    if (statuses.includes('down')) overallSystemStatus = 'down'
+    else if (statuses.includes('degraded')) overallSystemStatus = 'degraded'
+
     const lastChecked = new Date(healthData.lastChecked).toLocaleString('en-US', {
         month: 'long',
         day: 'numeric',
@@ -151,7 +194,8 @@ async function HealthPage() {
                             <h1 className="text-3xl font-extrabold tracking-tight bg-linear-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent sm:text-4xl">
                                 {`System Status`}
                             </h1>
-                            <p className="mt-3 text-3xl font-extrabold font-mono text-red-600 dark:text-red-400">{`Not Implemented 🚧`}</p>
+                            <p
+                                className={`mt-3 text-3xl font-extrabold font-mono ${mainStatusConfig[overallSystemStatus].iconColor}`}>{`${overallSystemStatus.toUpperCase()}`}</p>
                         </div>
 
                         {/* Main Status Card */}
