@@ -26,5 +26,4 @@ const NoLinks = () => {
     </div>
   );
 };
-
 export default NoLinks;

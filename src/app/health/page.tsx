@@ -149,13 +149,13 @@ async function HealthPage() {
                         {/* Page Heading */}
                         <div className="text-center">
                             <h1 className="text-3xl font-extrabold tracking-tight bg-linear-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent sm:text-4xl">
-                                System Status
+                                {`System Status`}
                             </h1>
-                            <p className="mt-3 text-lg text-slate-600 dark:text-slate-400">{`A real-time overview of our system's performance.`}</p>
+                            <p className="mt-3 text-3xl font-extrabold font-mono text-red-600 dark:text-red-400">{`Not Implemented 🚧`}</p>
                         </div>
 
                         {/* Main Status Card */}
-                        <div className="rounded-xl bg-[#1e1e3f]/90 shadow-xl border border-purple-100 dark:border-purple-900/30 overflow-hidden">
+                        <div className="rounded-xl bg-[#1e1e3f]/90 shadow-xl border-purple-100 dark:border-purple-900/30 overflow-visible">
                             {/* Decorative blur elements */}
                             <div className="relative p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#ba63d9] rounded-full blur-3xl opacity-20 -z-10"></div>

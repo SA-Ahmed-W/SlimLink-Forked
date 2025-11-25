@@ -3,31 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-
-interface LinkData {
-    id: number
-    shortUrl: string
-    redirectUrl: string
-    totalClicked: number
-    lastClicked: string | null
-    createdAt: string
-}
-
-interface ApiResponse {
-    data: LinkData[]
-    total: number
-    limit: number
-    offset: number
-    current_page: number
-    total_pages: number
-    has_next: boolean
-    has_prev: boolean
-}
+import { ApiResponse } from '@/types'
 
 interface LinkTableClientProps {
     linksData: ApiResponse
 }
-
 export default function LinkTableClient({ linksData }: LinkTableClientProps) {
     const router = useRouter()
     const [copiedId, setCopiedId] = useState<number | null>(null)
@@ -84,7 +64,7 @@ export default function LinkTableClient({ linksData }: LinkTableClientProps) {
     }
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex  flex-col gap-6">
             {/* Data Table */}
             <div className="overflow-x-auto bg-white dark:bg-[#181d34] rounded-xl shadow-sm">
                 <table className="w-full text-left text-sm">
@@ -148,7 +128,7 @@ export default function LinkTableClient({ linksData }: LinkTableClientProps) {
                                 <td className="p-4">
                                     <div className="flex items-center gap-2">
                                         <Link
-                                            href={`/link/${link.shortUrl}`}
+                                            href={`/code/${link.shortUrl}`}
                                             className="p-2 rounded-lg hover:bg-purple-500/10 text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-500 transition-colors"
                                             title="View Stats">
                                             <svg

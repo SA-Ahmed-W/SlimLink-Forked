@@ -13,7 +13,6 @@ export default function DashboardClient({ children }: DashboardClientProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const handleCreate = async (fullUrl: string, shortUrl?: string) => {
-        console.log('Creating short URL:', { fullUrl, shortUrl })
         const fetchRes = await fetch('/api/links', {
             method: 'POST',
             headers: {
@@ -27,9 +26,6 @@ export default function DashboardClient({ children }: DashboardClientProps) {
             return
         }
 
-        // const fetchJson = await fetchRes.json()
-        // console.log(fetchJson)
-
         // Refresh to show new link
         router.refresh()
     }
@@ -39,7 +35,7 @@ export default function DashboardClient({ children }: DashboardClientProps) {
     }
 
     return (
-        <div className="m-3 relative min-h-fit bg-[#1e1e3f]/90 backdrop-blur-xl border border-purple-500/10 rounded-2xl p-6">
+        <div className="m-3 relative h-full bg-[#1e1e3f]/90 backdrop-blur-xl border border-purple-500/10 rounded-2xl p-6">
             <div className="flex justify-between flex-wrap border-b border-b-purple-500/10 mb-6">
                 <div className="p-3">
                     <CreateButton onClick={handleModalOpenClose} />

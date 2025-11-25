@@ -7,7 +7,6 @@ interface URLShortenerModalProps {
     onClose: () => void
     onCreate: (fullUrl: string, shortUrl?: string) => void | Promise<void>
 }
-
 interface ShortenerFormElements extends HTMLFormControlsCollection {
     fullUrl: HTMLInputElement
     shortUrl: HTMLInputElement
